@@ -1,0 +1,27 @@
+bitparidade:
+	move $t0,$a0;
+	addi,$t1,$zero,1
+	move $v0,$zero
+	addi, $t3,$zero,7
+	loop:
+		and $t2,$t1,$t0
+		beq $t2,$zero,pulasoma
+		beq $v0,$zero,somaum
+		move $v0,$zero
+		j pulasoma
+		somaum:
+		addi $v0,$zero,1
+		
+		pulasoma:
+		sll $t1,$t1,1
+		addi $t3,$t3,-1
+		beq $t3,$zero,exit
+		j loop
+	exit:
+	bne $v0,$zero,impar
+	par:
+	move $v1,$a0
+	jr $ra
+	impar:
+	or $v1,$a0,$t1
+	jr $ra

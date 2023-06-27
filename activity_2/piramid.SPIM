@@ -1,0 +1,103 @@
+.data
+.text
+main:
+	#getting the integer
+	li $v0,5
+	syscall
+	move $t0, $v0
+	addi $t2,$zero,1
+	addi $t4,$zero,1
+	
+	loop:
+	addi $t3,$zero,1
+		line:
+		slti $t7,$t2,10
+		beq $t7,$zero,exit3
+		move $a0,$zero
+		li $v0,1
+		syscall
+		move $a0,$t2
+		syscall
+		j conparison
+		
+		exit3:
+			li $v0,1
+			move $a0,$t2
+			syscall
+			
+			conparison:
+				addi $t3,$t3,1
+				slt $t8,$t2,$t3
+				bne $t8,$zero,exit2
+			
+		li $v0,11
+		li $a0,32
+		syscall
+		
+		j line
+	exit2:
+	addi $t2,$t2,1
+	slt $t9,$t0,$t2
+	bne $t9,$zero, newline
+	
+	li $v0,11
+	li $a0,10
+	syscall
+		
+	j loop
+	
+	newline:
+	li $v0,11
+	li $a0,10
+	syscall
+	syscall
+	
+	loop2:
+	addi $t3,$zero,1
+		line2:
+		slti $t7,$t3,10
+		beq $t7,$zero,exit_c
+		move $a0,$zero
+		li $v0,1
+		syscall
+		move $a0,$t3
+		syscall
+		j conparison2
+		
+		exit_c:
+			li $v0,1
+			move $a0,$t3
+			syscall
+			
+			conparison2:
+				addi $t3,$t3,1
+				slt $t8,$t4,$t3
+				bne $t8,$zero,exit_b
+			
+		li $v0,11
+		li $a0,32
+		syscall
+		
+		j line2
+	exit_b:
+	addi $t4,$t4,1
+	slt $t9,$t0,$t4
+	bne $t9,$zero, finale
+	
+	li $v0,11
+	li $a0,10
+	syscall
+		
+	j loop2
+	
+	finale:
+	li $v0,11
+	li $a0,10
+	syscall
+	syscall
+	li $v0,10
+	syscall
+	
+	
+
+	

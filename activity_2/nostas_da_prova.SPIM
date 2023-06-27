@@ -1,0 +1,60 @@
+.data
+	#grades
+	SRG: .asciiz "SR\n"
+	IIG: .asciiz "II\n"
+	MIG: .asciiz "MI\n"
+	MMG: .asciiz "MM\n"
+	MSG: .asciiz "MS\n"
+	SSG: .asciiz "SS\n"
+.text
+main:
+	#getting the numerical grade
+	li $v0,5
+	syscall
+	move $t0, $v0
+		
+	bne $t0,$zero, II #if grade != zero, don't print SR
+	li $v0,4
+	la $a0,SRG
+	syscall #if grade == zero, print SR
+	li $v0, 10
+	syscall
+	II:
+		slti $t1,$t0,30
+		beq $t1,$zero,MI #if grade >= 30, don't print II
+		li $v0,4
+		la $a0,IIG
+		syscall #if 0 < grade < 29   print II	
+		li $v0, 10
+		syscall
+	MI:
+		slti $t1,$t0,50
+		beq $t1,$zero,MM #if grade >= 50, don't print MI
+		li $v0,4
+		la $a0,MIG
+		syscall #if 30 < grade < 49   print MI
+		li $v0, 10
+		syscall
+	MM:
+		slti $t1,$t0,70
+		beq $t1,$zero,MS #if grade >= 70, don't print MM
+		li $v0,4
+		la $a0,MMG
+		syscall #if 50 < grade < 69   print MM
+		li $v0, 10
+		syscall
+	MS:
+		slti $t1,$t0,90
+		beq $t1,$zero,SS #if grade >= 90, don't print MS
+		li $v0,4
+		la $a0,MSG
+		syscall #if 70 < grade < 89   print MI
+		li $v0, 10
+		syscall
+	SS:
+		#Print SS
+		li $v0,4
+		la $a0,SSG
+		syscall #if grade >= 90   print SS
+		li $v0, 10
+		syscall

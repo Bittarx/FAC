@@ -1,0 +1,24 @@
+.data
+.text
+main:
+	#getting the first integer
+	li $v0,5
+	syscall
+	move $t1,$v0
+	
+	#getting the second integer
+	li $v0,5
+	syscall
+	move $t2,$v0
+	
+	#subtracting the numbers
+	sub $s0,$t1,$t2
+	move $a0,$s0
+	
+	#printing the result
+	li $v0,1
+	syscall
+	
+	#ending the process
+	li $v0,10
+	syscall
